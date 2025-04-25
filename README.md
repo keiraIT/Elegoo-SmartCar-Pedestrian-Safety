@@ -1,4 +1,4 @@
-# 🚦 Elegoo Smart Car - Vision-Based Pedestrian Safety System
+# Elegoo Smart Car - Vision-Based Pedestrian Safety System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
@@ -7,7 +7,7 @@
 
 ![System Demo GIF](./docs/media/demo.gif)
 
-## 📌 Table of Contents
+## Table of Contents
 - [Project Focus](#-project-focus)
 - [System Characteristics](#-system-characteristics)
 - [Hardware Setup](#-hardware-setup)
@@ -19,7 +19,7 @@
 - [Limitations](#-limitations)
 - [License](#-license)
 
-## 🔍 Project Focus
+## Project Focus
 This system demonstrates a safety-critical application of computer vision on embedded hardware:
 - **Pedestrian Detection**: Uses custom-trained CNN to identify humans in camera feed
 - **Automatic Stopping**: Triggers immediate stop when person detected (confidence > 0.75)
@@ -28,7 +28,7 @@ This system demonstrates a safety-critical application of computer vision on emb
 
 **Key Innovation**: Cost-effective implementation of collision prevention using off-the-shelf educational hardware.
 
-## 📋 System Characteristics
+## System Characteristics
 | Component            | Specification                           |
 |----------------------|----------------------------------------|
 | **Processing**       | External host computer (Python 3.8+)   |
@@ -38,7 +38,7 @@ This system demonstrates a safety-critical application of computer vision on emb
 | **Control Protocol** | Custom JSON over TCP (Port 100)        |
 | **Heartbeat**        | 0.8s interval                          |
 
-## 🛠️ Hardware Setup
+## Hardware Setup
 ### Required Components
 1. **Elegoo Smart Car v4.0** with:
    - Assembled chassis and motors
@@ -49,7 +49,7 @@ This system demonstrates a safety-critical application of computer vision on emb
    - WiFi-capable laptop/PC
    - Minimum specs: Core i5, 8GB RAM
   
-## 💻 Software Components
+## Software Components
 
 ### 1. Main Control System (`main_control.py`)
 - **Core Functionality**:
