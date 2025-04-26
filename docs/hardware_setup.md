@@ -1,5 +1,5 @@
 # Hardware Setup Guide
-
+  
 ## Required Components
 - Elegoo Smart Car v4.0 components
 - ESP32-S3-Eye camera module
