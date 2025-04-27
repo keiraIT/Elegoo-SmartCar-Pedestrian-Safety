@@ -1,4 +1,4 @@
-# 🌐 System Architecture
+#  System Architecture
 
 ## Key Components
 | Component | Purpose |
