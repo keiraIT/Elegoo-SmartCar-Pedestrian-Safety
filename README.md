@@ -89,7 +89,7 @@ if ("person" in detected_class and
 ## Installation Guide
 
 ### Prerequisites
-   - Python 3.8 or later
+   - Python 3.8+
    - pip package manager
    - Git version control
 
