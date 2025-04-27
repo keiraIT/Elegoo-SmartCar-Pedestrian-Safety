@@ -132,7 +132,7 @@ cp /path/to/your/labels.txt models/labels.txt
 | Argument               | Description                      |
 |------------------------|----------------------------------|
 | ``--threshold``        | Set confidence threshold (0-1)   |
-| ``--debug''            | Enable verbose logging           |
+| ``--debug``            | Enable verbose logging           |
 
 ## Technical Implementations
 
