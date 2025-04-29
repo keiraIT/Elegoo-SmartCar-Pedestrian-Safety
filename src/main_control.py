@@ -28,11 +28,11 @@ ESP_CAMERA_IP = 'http://192.168.4.1:81/stream'
 CONTROL_HOST = "192.168.4.1"
 CONTROL_PORT = 100
 IMAGE_SIZE = (224, 224)
-MAX_RECONNECT_ATTEMPTS = 5                # Increased from 3
-BASE_RECONNECT_DELAY = 1                  # Seconds (with exponential backoff)
-MIN_HEARTBEAT_INTERVAL = 0.8              # More frequent heartbeats (was 2)
-COMMAND_DELAY = 0.3                       # Reduced from 0.5
-CONFIDENCE_THRESHOLD = 0.75               # Stricter confidence requirement
+MAX_RECONNECT_ATTEMPTS = 5                
+BASE_RECONNECT_DELAY = 1                 
+MIN_HEARTBEAT_INTERVAL = 0.8              
+COMMAND_DELAY = 0.3                       
+CONFIDENCE_THRESHOLD = 0.75               
 
 # =============================================
 # NETWORK UTILITIES
@@ -193,4 +193,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"! Fatal startup error: {str(e)}")
     finally:
-        print("🔴 System shutdown complete")
+        print("System shutdown complete")
