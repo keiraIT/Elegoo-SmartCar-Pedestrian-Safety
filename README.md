@@ -52,7 +52,6 @@ Key features:
    - WiFi connectivity
 
 ### Connection Diagram
-### Connection Diagram
 ```plaintext
 [Laptop] ←WiFi→ [ESP32-S3-Eye]
                    │
