@@ -73,7 +73,7 @@ def main_control_loop():
             if not is_socket_connected(s):
                 s.close()
                 s = create_socket()
-                s.connect((CONTROL_HOST, CONTROL_PORT))
+                s.connect( (CONTROL_HOST, CONTROL_PORT) )
                 reconnect_attempts = 0
                 print("Connection established")
 
@@ -89,23 +89,23 @@ def main_control_loop():
                 continue
 
             # Predicting the image
-            prediction = model.predict(image_data, verbose=0)
+            prediction = model.predict(image_data, verbose = 0)
             index = np.argmax(prediction)
             confidence = prediction[0][index]
             
             if confidence < CONFIDENCE_THRESHOLD:
-                print(f"! Low confidence ({confidence:.2f}) - ignoring prediction")
+                print(f"! Low confidence ( {confidence : .2f} ) - ignoring prediction")
                 continue
 
             # Command execution
             class_name = class_names[index].lower()
             if "people" in class_name:
-                print("PERSON detected - STOPPING") # <---lists predicted label/object for debugging
-                safe_send(s, b'{"N":100}') # <---command protocol to stop car
+                print("PERSON detected -> STOPPING") # <---lists predicted label/object for debugging
+                safe_send(s, b'{"N":100}') # <---sends command protocol to stop car
             elif "allow" in class_name:
                 # this class includes any objects that aren't considered "people"
                 print("ALLOWED object - MOVING")  # <---lists predicted label/object for debugging
-                safe_send(s, b'{"N":3,"D1":3,"D2":100}') # <---command protocol for moving the car (can change to above params)
+                safe_send(s, b'{"N":3,"D1":3,"D2":100}') # <---sends command protocol for moving the car (can change to above params)
                 time.sleep(1)
 
             time.sleep(COMMAND_DELAY)
@@ -134,12 +134,12 @@ def main_control_loop():
 # Main Output
 if __name__ == "__main__":
     print("Elegoo Smart Car Controller v2.0")
-    print(f"• Confidence threshold: {CONFIDENCE_THRESHOLD}")
-    print(f"• Max reconnect attempts: {MAX_RECONNECT_ATTEMPTS}")
+    print(f" Model Confidence threshold: {CONFIDENCE_THRESHOLD}")
+    print(f" Max reconnect attempts: {MAX_RECONNECT_ATTEMPTS}")
     
     try:
         # Initial system check
-        test_img = get_image(MjpegCollector(address = ESP_CAMERA_IP))
+        test_img = get_image(MjpegCollector(address = ESP_CAMERA_IP)) # <--for camera
         if test_img is not None:
             print("starting control loop")
             main_control_loop()
