@@ -17,10 +17,7 @@ class CustomDepthwiseConv2D(DepthwiseConv2D):
         kwargs.pop("groups", None)  
         super().__init__(*args, **kwargs)
 
-# CONFIG
-# ==============================================
-#     Names propmted for better understanding of instatiated variables and where they are used in the code
-#     Also to help with understanding of the code, what it does, and wha tvariables goes into the process 
+# CONFIGS
 MODEL_PATH = "C:/Users/YourUser/YourDownloads/converted_keras(1)/keras_model.h5" # <---Change to your keras_model.h5 filepath
 LABELS_PATH = "C:/Users/YourUser/YourDownloads/converted_keras(1)/labels.txt"  # <---Change to your labels.txt filepath
 # For the code below, toproperly verify connection car/connection to the car's wifi, go to this link/paste 
