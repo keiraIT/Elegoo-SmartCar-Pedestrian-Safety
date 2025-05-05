@@ -3,6 +3,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 
+### Project Demo
+
+
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [System Specifications](#system-specifications)
@@ -182,3 +185,19 @@ cp /path/to/your/labels.txt models/labels.txt
    - Performance degrades in low light
    - Complex backgrounds may reduce accuracy
    - Fast-moving objects may not be detected reliably
+
+
+## References and Attributions
+
+### Official Documentation
+- **Elegoo Smart Car Protocol**:  
+  All motor control commands (`N:3`, `D1:1`, etc.) follow the [Elegoo Smart Robot Car V4.0 Communication Protocol](Communication%20protocol%20for%20Smart%20Robot%20Car.pdf).  
+     - EX: `{"N":3,"D1":3,"D2":200}` for move car, forward(3) at 200(PWM = 0-255) speed.
+### Course Materials
+- **Network Implementations**:  
+  The socket initialization and heartbeat logic were both adapted from unpublished course materials (   ).  
+- **Camera Integration**:  
+  The TensorFlow Lite deployment for the model was also adapted from unpublished material provided via my course (   ).
+### AI Collaboration
+- **Debugging and Optimization**:  
+  Used [DeepSeek]((https://chat.deepseek.com)) to resolve version compatibility issues (i.e., custom `DepthwiseConv2D` layer)
