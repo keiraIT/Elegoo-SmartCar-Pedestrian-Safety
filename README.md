@@ -33,9 +33,9 @@ Key features:
 | Detection Latency       | 250-350ms end-to-end                   |
 | Camera Resolution       | 1600×1200 (MJPEG stream at 5 FPS)      |
 | Model Input Resolution  | 224×224 pixels                         |
-| Control Protocol        | JSON over TCP (Port 100)               |
+| Control Protocol        | Port 100                               |
 | Heartbeat Interval      | 800ms                                  |
-| Max Reconnection Attempts | 5 (with exponential backoff)         |
+| Max Reconnection Attempts | 5                                    |
 
 ## Hardware Requirements
 
@@ -141,18 +141,18 @@ cp /path/to/your/labels.txt models/labels.txt
 - Output: Softmax classification probabilities
 - Classes: Defined in labels.txt
 
-### Communication Protocol
+### **Communication Protocol**
 | Command Format          | Description                  |
 |-------------------------|------------------------------|
 | ``{"N":100}``           | Emergency stop               |
-| ``{"N":3,"D1":3,"D2":X}`` | Move (X= direction),  (Y = speed)    |
-| ``{Heartbeat}``         | Connection keep-alive        | 
+| ``{"N":3,"D1":X,"D2":Y}`` | Moves (X= direction) at (Y = speed)    |
+| ``{Heartbeat}``         | Keeps connection alive       | 
 
 ## Development Process
 
 1. **Phase 1:** Base
-   - Established basic WiFi control
-   - Implemented camera streaming
+   - Establish basic WiFi control
+   - Implement camera streaming
    - Developed motor test utility
 
 2. **Phase 2:** Model Integration
