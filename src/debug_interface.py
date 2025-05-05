@@ -11,38 +11,36 @@ from everywhereml.data.collect import MjpegCollector
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import DepthwiseConv2D
 
-# =============================================
-# CUSTOM LAYER FIX FOR COMPATIBILITY
-# =============================================
+# FIX FOR COMPATIBILITY
 class CustomDepthwiseConv2D(DepthwiseConv2D):
     def __init__(self, *args, **kwargs):
         kwargs.pop("groups", None)  
         super().__init__(*args, **kwargs)
 
-# =============================================
-# CONFIGURATION
-# =============================================
-MODEL_PATH = "C:/Users/kemcg/Downloads/converted_keras(1)/keras_model.h5"
-LABELS_PATH = "C:/Users/kemcg/Downloads/converted_keras(1)/labels.txt"
-ESP_CAMERA_IP = 'http://192.168.4.1:81/stream'
+# CONFIG
+# ==============================================
+#     Names propmted for better understanding of instatiated variables and where they are used in the code
+#     Also to help with understanding of the code, what it does, and wha tvariables goes into the process 
+MODEL_PATH = "C:/Users/YourUser/YourDownloads/converted_keras(1)/keras_model.h5" # <---Change to your converted_keras(1)keras_model.h5 filepath
+LABELS_PATH = "C:/Users/YourUser/YourDownloads/converted_keras(1)/labels.txt"  # <---Change to your converted_keras(1).labels.txt filepath
+# For the code below, toproperly verify connection car/connection to the car's wifi, go to this link/paste 
+# this link to the browser and feed from the car's camera should stream to your host device 
+ESP_CAMERA_IP = 'http://192.168.4.1:81/stream' 
 CONTROL_HOST = "192.168.4.1"
 CONTROL_PORT = 100
 HEARTBEAT_INTERVAL = 2  
 IMAGE_SIZE = (224, 224)
 
-# =============================================
 # INITIALIZATION
-# =============================================
-# Load model with custom layer fix
+# ==============================================
+# Load model 
 try:
-    model = load_model(
-        MODEL_PATH,
-        compile=False,
+    model = load_model(MODEL_PATH, compile=False,
         custom_objects={"DepthwiseConv2D": CustomDepthwiseConv2D}
-    )
-    print("Model loaded successfully")
+                      )
+    print("Model loaded ")
 except Exception as e:
-    print(f"Failed to load model: {str(e)}")
+    print(f"Failed to load model: {str(e)}") # <---Streams loading failure message
     exit(1)
 
 # Load labels
@@ -55,12 +53,11 @@ except Exception as e:
     exit(1)
 
 # Initialize camera collector
-basicConfig(level=INFO)
-mjpeg_collector = MjpegCollector(address=ESP_CAMERA_IP)
+basicConfig(level = INFO)
+mjpeg_collector = MjpegCollector(address = ESP_CAMERA_IP)
 
-# =============================================
-# IMAGE PROCESSING FUNCTIONS
-# =============================================
+
+# IMAGE PROCESSING
 def get_image(mjpeg_collector):
     """Capture and preprocess image from camera"""
     try:
@@ -78,14 +75,17 @@ def get_image(mjpeg_collector):
         print(f"Error capturing image: {str(e)}")
         return None
 
-# =============================================
 # MAIN CONTROL LOOP
-# =============================================
+# ===============================================
+#     Command structure was taken from Elegoo Communication Protocol v4.0 (2023) 
+#     {"N":3,"D1":direction,"D2":speed} - Motor movement command
+#     D1 params: 1 = Turn left; 2 = Turn right; 3 = Forward; 4 = Backward
 def main_control_loop():
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:        
         try:
-            s.connect((CONTROL_HOST, CONTROL_PORT))
-            print(f"Connected to {CONTROL_HOST}:{CONTROL_PORT}")
+            s.connect( ( CONTROL_HOST, CONTROL_PORT ) )
+            # makes sure host (you) are connected to the port (car)
+            print(f"Connected to {CONTROL_HOST} : {CONTROL_PORT}")
             
             last_heartbeat = time.time()
             
@@ -101,44 +101,45 @@ def main_control_loop():
                 if image_data is None:
                     continue
                 
-                # Make prediction
+                # Makes prediction
                 prediction = model.predict(image_data)
                 index = np.argmax(prediction)
                 class_name = class_names[index]
                 confidence = prediction[0][index]
-                
+
+                # More model-error/model-prediction verfications/debugging messages
                 print(f"Predicted: {class_name} (Confidence: {confidence:.2f})")
                 
-                # More Control logic
-                if "people" in class_name.lower() and confidence > 0.7:  # Confidence threshold
+                # More Control logic:
+                # Command structure was taken from Elegoo Communication Protocol v4.0 (2023) 
+                # {"N":3,"D1":direction,"D2":speed} - Motor movement command
+                # D1 params: 1 = Turn left; 2 = Turn right; 3 = Forward; 4 = Backward
+                # D2 params: 0-255; (its PWM so the range goes from 0-255)
+                if "people" in class_name.lower() and confidence > 0.7:  # <---Confidence minimum
                     print("Person detected - taking action")
-                    s.sendall(b'{"N":100}')  # Stop command
-                    time.sleep(1)
-                elif "allow" in class_name.lower() and confidence > 0.7:
-                    print("Allowed object - moving forward")
-                    s.sendall(b'{"N":3,"D1":3,"D2":140}')  # Move forward
+                    s.sendall(b'{"N":100}') # <---Stopping command
+                    time.sleep(1) 
+                elif "allow" in class_name.lower() and confidence > 0.7:                    
+                    print("Allowed object - moving forward") # <--- model/image verfiication (if it predicted the correct object)
+                    s.sendall(b'{"N":3,"D1":3,"D2":140}')  # <---Move forward (can be altered to params above) 
                     time.sleep(3)
-                    # s.sendall(b'{"N":100}')  # Stop after 1 second
-                    s.sendall(b'{"N":3,"D1":3,"D2":140}')  # Move forward
+                    s.sendall(b'{"N":3,"D1":3,"D2":140}')  
                     time.sleep(3)
 
-                time.sleep(0.5)  # Small delay between cycles
+                time.sleep(0.5)  # <--- Small break between cycles
                 
         except KeyboardInterrupt:
             print("\nExiting...")
         except Exception as e:
             print(f"Error in control loop: {str(e)}")
         finally:
-            # s.sendall(b'{"N":100}')  # Ensure car stops when exiting
             print("Connection closed")
 
-# =============================================
-# MAIN EXECUTION
-# =============================================
+# Main Ouput
 if __name__ == "__main__":
     print("Starting Smart Car Control System")
     try:
-        # test capture
+        # testing, image capturing, and error debuggin messages
         test_data = get_image(mjpeg_collector)
         if test_data is not None:
             print("Camera test successful")
@@ -147,3 +148,5 @@ if __name__ == "__main__":
             print("Failed initial camera test")
     except Exception as e:
         print(f"Fatal error: {str(e)}")
+
+
