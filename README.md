@@ -99,7 +99,7 @@ if ("person" in detected_class and
 ### Set-up Instructions
 1. Clone the repository:
 ```bash
-  git clone https://github.com/yourusername/Elegoo-SmartCar-Pedestrian-Safety.git
+  git clone https://github.com/keiraIT/Elegoo-SmartCar-Pedestrian-Safety.git
   cd Elegoo-SmartCar-Pedestrian-Safety
    ```
 2. Install python dependencies:
