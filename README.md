@@ -19,14 +19,14 @@
 
 ## Project Overview
 
-This system implements a computer vision-based safety mechanism for the Elegoo Smart Car v4.0 platform. The primary function is to detect pedestrians in the car's path using an onboard camera and automatically initiate stopping procedures when people are identified.
+The primary function is to detect pedestrians in the car's path using an onboard camera and automatically initiate stopping procedures when pedestrians are identified.
 
 Key features:
 - Real-time image processing at 3-5 FPS
 - Custom-trained convolutional neural network
 - WiFi-based control interface
 - Configurable confidence threshold (default: 0.75)
-- Robust connection management
+- Connection management
 
 ## System Specifications
 
@@ -79,10 +79,11 @@ if ("person" in detected_class and
     prediction_confidence > CONFIDENCE_THRESHOLD):
     send_emergency_stop()
 ```
-2. **Debug Interface (debug_interface.py)**
+2. **Debugging Interface (debug_interface.py)**
    - Frame capture diagnostics
    - Model performance metrics
    - Command echo testing
+   - Verification and debugging messages
    
 3. **Motor Test Utility (motor_test.py)**
    - Basic movement validation
@@ -132,7 +133,7 @@ cp /path/to/your/labels.txt models/labels.txt
 
 ## Technical Implementations
 
-## Model Architecture
+### Model Architecture
 - Type: Custom CNN based on MobileNetV2
 - Input: 224x224 RGB images (normalized to [-1, 1])
 - Output: classification probabilities
