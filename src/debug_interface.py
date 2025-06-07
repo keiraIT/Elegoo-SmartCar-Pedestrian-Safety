@@ -19,12 +19,13 @@ class CustomDepthwiseConv2D(DepthwiseConv2D):
 
 # CONFIG
 # ==============================================
-#     Names propmted for better understanding of instatiated variables and where they are used in the code
-#     Also to help with understanding of the code, what it does, and wha tvariables goes into the process 
+#    Names propmted for better understanding of instatiated variables and where they are used in the code
+#    Also to help with understanding of the code, what it does, and wha tvariables goes into the process 
 MODEL_PATH = "C:/Users/YourUser/YourDownloads/converted_keras(1)/keras_model.h5" # <---Change to your converted_keras(1)keras_model.h5 filepath
 LABELS_PATH = "C:/Users/YourUser/YourDownloads/converted_keras(1)/labels.txt"  # <---Change to your converted_keras(1).labels.txt filepath
-# For the code below, toproperly verify connection car/connection to the car's wifi, go to this link/paste 
-# this link to the browser and feed from the car's camera should stream to your host device 
+
+# For the code below, to properly verify connection to the car's wifi, and in turn the camera, copy and paste
+# the 'http://' link/address to ur browser. Once done, feed from the car's camera should stream to your host device 
 ESP_CAMERA_IP = 'http://192.168.4.1:81/stream' 
 CONTROL_HOST = "192.168.4.1"
 CONTROL_PORT = 100
@@ -40,14 +41,14 @@ try:
                       )
     print("Model loaded ")
 except Exception as e:
-    print(f"Failed to load model: {str(e)}") # <---Streams loading failure message
+    print(f"Failed to load model: {str(e)}") # <--- loading failure message
     exit(1)
 
 # Load labels
 try:
     with open(LABELS_PATH, "r") as f:
         class_names = [line.strip() for line in f.readlines()]
-    print("Labels loaded successfully")
+    print("Labels loaded successfully") 
 except Exception as e:
     print(f"Failed to load labels: {str(e)}")
     exit(1)
