@@ -30,7 +30,7 @@ Key features:
 
 ## System Specifications
 
-| Component               | Specification                           |
+| Component               | Specification                          |
 |-------------------------|----------------------------------------|
 | Processing Unit         | External host computer (Python 3.8+)   |
 | Detection Latency       | 250-350ms end-to-end                   |
@@ -46,11 +46,10 @@ Key features:
 1. Elegoo Smart Car v4.0 with:
    - Assembled chassis and motor assembly
    - ESP32-S3-Eye camera module
-   - Fully charged 18650 battery pack
+   - Fully(or mostly) charged 18650 battery pack
 
 2. Host Computer:
    - Minimum: Intel Core i5 or equivalent
-   - RAM: 8GB minimum
    - Operating System: Windows 10/11 or Linux
    - WiFi connectivity
 
@@ -148,20 +147,20 @@ cp /path/to/your/labels.txt models/labels.txt
 
 ## Development Process
 
-1. **Phase 1:** Base
+1. **Part 1:** Base
    - Establish basic WiFi control
    - Implement camera streaming
    - Developed motor test utility
 
-2. **Phase 2:** Model Integration
+2. **Part 2:** Model Integration
    - Custom model training and conversion
    - Implemented custom layer compatibility
    - Developed image preprocessing pipeline
-3. **Phase 3:** Safety Implementation
+3. **Part 3:** Safety Implementation
    - Added confidence thresholding
    - Implemented emergency stop protocol
-   - Developed heartbeat system
-4. **Phase 4:** Optimization
+   - Implemented heartbeat system
+4. **Part 4:** Optimization
    - Tuned system timings
    - Improved error handling
    - Added reconnection logic
@@ -194,4 +193,4 @@ cp /path/to/your/labels.txt models/labels.txt
   The TensorFlow Lite deployment for the model was also adapted from unpublished material provided via my course (   ).
 ### AI Collaboration
 - **Debugging and Optimization**:  
-  Used [DeepSeek]((https://chat.deepseek.com)) to resolve version compatibility issues (i.e., custom `DepthwiseConv2D` layer), and isolating errors.
+  Used AI to resolve version compatibility issues (i.e., custom `DepthwiseConv2D` layer), and for isolating errors.
