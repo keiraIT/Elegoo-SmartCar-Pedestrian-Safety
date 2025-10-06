@@ -12,4 +12,4 @@
   
 ## Tools & Libraries
 - TensorFlow Lite Micro for model deployment.
-- DeepSeek for debugging assistance (custom layer fixes).
+- AI assistance for debugging assistance (custom layer fixes).
