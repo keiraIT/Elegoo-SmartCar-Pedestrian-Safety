@@ -188,9 +188,10 @@ cp /path/to/your/labels.txt models/labels.txt
      - EX: `{"N":3,"D1":3,"D2":200}` for move car, forward(3) at 200(PWM = 0-255) speed.
 ### Course Materials Used
 - **Network Implementations**:  
-  The socket initialization and heartbeat logic were both adapted from unpublished course materials (   ).  
+  The socket initialization and heartbeat logic were both adapted from unpublished course materials.  
 - **Camera Integration**:  
-  The TensorFlow Lite deployment for the model was also adapted from unpublished material provided via my course (   ).
+  The TensorFlow Lite deployment for the model was also adapted from unpublished material provided via my course.
 ### AI Collaboration
 - **Debugging and Optimization**:  
   Used AI to resolve version compatibility issues (i.e., custom `DepthwiseConv2D` layer), and for isolating errors.
+
